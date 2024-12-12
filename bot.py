@@ -30,6 +30,9 @@ user_data = {}
 # CUSTOMIZE: Change this password to your desired value
 password = '4422'
 
+# You Bot Token
+BOT_TOKEN = "" # add here
+
 # Track the message IDs for deleting and resending
 message_ids = {'start': None, 'premium': None}
 
@@ -137,7 +140,7 @@ def button(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     # CUSTOMIZE: Replace with your bot token from @BotFather
-    updater = Updater("#52#####:A##############NIOWgSBsZ###xo")
+    updater = Updater(BOT_TOKEN)
 
     dispatcher = updater.dispatcher
 

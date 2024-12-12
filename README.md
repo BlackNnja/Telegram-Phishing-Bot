@@ -2,22 +2,20 @@
 
 Python: 3.9+ Telegram Bot API
 
-## Row of Contents 📚
 
-- **Introduction** 🤔
-- **Features** 🎉
-- **Installation** 💻
-- **Usage** 📱
-- **Configuration** 🔧
-- **License** 📜
-- **Example Use Cases** 🖍️
-- **Code Structure** 🗂️
-- **API Documentation** 📚
-- **Commit Messages** 🖍️
-- **Image** 📸
-- **Customization** 🔨
-- **Troubleshooting** 🚨
+## Table of Contents 📚
 
+- [Introduction](#introduction-) 🤔
+- [Features](#features-) 🎉
+- [Installation](#installation-) 💻
+- [Usage](#usage-) 📱
+- [Configuration](#configuration-) 🔧
+- [License](#license-) 📜
+- [Example Use Cases](#example-use-cases-️) 🖍️
+- [Code Structure](#code-structure-️) 🗂️
+- [API Documentation](#api-documentation-) 📚
+- [Commit Messages](#commit-messages-️) 🖍️
+- [Community](#community) 👥
 ---
 
 ## Introduction 🤔
@@ -49,31 +47,31 @@ You can modify the text, button labels for the phone number sharing prompt, and 
 To install the bot, follow these steps:
 
 1. **Clone the repository**: Clone the repository using:
-    ```bash
+
+   ```bash
     git clone https://github.com/BlackNnja/Telegram-Phishing-Bot.git
     ```
+   
     the cd to the 📁
 
-2. **Install Python**: Make sure you have Python 3.9 or later installed on your system. You can download it from the [official Python website](https://www.python.org/downloads/) 🔢.
+4. **Install Python**: Make sure you have Python 3.9 or later installed on your system. You can download it from the [official Python website](https://www.python.org/downloads/) 🔢.
+5. 
 
-3. **Install python-telegram-bot**: Install the python-telegram-bot library using pip:
-    ```bash
+6. **Install python-telegram-bot**: Install the python-telegram-bot library using pip:
+
+     ```bash
     pip install python-telegram-bot==13.15
     ```
     📦
 
-4. **Install other dependencies**: Install the other dependencies required by the bot using pip:
-    ```bash
-    pip install -r req.txt
-    ```
+9. **Install other dependencies**: Install the other dependencies required by the bot using pip:    ```bash
+    pip install -r req.txt    ```
     💻
 
-5. **Replace `YOUR_BOT_TOKEN`**: Replace `YOUR_BOT_TOKEN` with your actual bot token in the `main.py` file 🔑.
+10. **Replace `YOUR_BOT_TOKEN`**: Replace `YOUR_BOT_TOKEN` with your actual bot token in the `main.py` file 🔑.
 
-6. **Run the bot**: Run the bot using:
-    ```bash
-    python bot.py
-    ```
+11. **Run the bot**: Run the bot using:    ```bash
+    python bot.py    ```
     🚀
 
 ---
@@ -83,8 +81,10 @@ To install the bot, follow these steps:
 To use the bot, follow these steps:
 
 1. **Start the bot**: Start the bot by sending the `/start` command 📱.
-2. **Share your phone number**: Share your phone number with the bot to receive premium access 📞.
-3. **Users That knows the password can view users**: Users can view the list of users who have shared their phone number using the `/show {PASSWORD}` command 👀.
+ 
+3. **Share your phone number**: Share your phone number with the bot to receive premium access 📞.
+ 
+5. **Users That knows the password can view users**: Users can view the list of users who have shared their phone number using the `/show {PASSWORD}` command 👀.
 
 ---
 
@@ -95,24 +95,22 @@ The bot uses a password to protect the `/show` command 🔒. You can change the 
 To configure the bot's appearance and functionality:
 
 1. **Change the Welcome Image**:
-   - Replace the image file in the `assets/` folder with your own image.
-   - Update the path to the new image in the `send_welcome()` function in `bot.py`.
+   - Replace the image file in the folder with your own image.
+   - Update the path to the new image in the `send_welcome_message()` function in `bot.py`.
+     ```
+         with open('telegramicon.png', 'rb') as photo:
+     ```
 
 2. **Modify the Button Labels**:
-   - Edit the `reply_markup` section in the `send_welcome()` function to customize the text of the buttons.
+   - Edit the `button_text` var in the `send_welcome_message()` function to customize the text of the buttons.
 
-   Example:
-   ```python
-   buttons = [
-       [InlineKeyboardButton(“Share Phone Number”, callback_data='share_phone')],
-   ]
-   ```
+   Example:   ```python
+    button_text = "⭐️ Get Free 3 months Telegram Premium"```
 
 3. **Customize the Text and Picture**:
    - Edit the strings in the `send_welcome()` function to update the welcome message and other text.
 
-   Example:
-   ```python
+   Example:   ```python
         # Send welcome message with a picture and both buttons
         with open('telegramicon.png', 'rb') as photo:
             sent_message = update.message.reply_photo(
@@ -122,8 +120,7 @@ To configure the bot's appearance and functionality:
                          "To Get ⭐Free Premium Telegram ⭐ Access\n\n please press the box icon button \n\nnear the clip 🧷\n\n below to connect your account to Telegram Pro. 📱\n\n"
                          "Happy Using And Keep Coming Back Every 3 Months! 😊"),
                 reply_markup=reply_markup
-            )
-   ```
+            )   ```
 
 ---
 
@@ -168,4 +165,3 @@ Commit messages should follow the standard format:
 
 - Join our community on Telegram: [t.me/israelihacker](https://t.me/israelihacker)
 - Visit the original bot: [t.me/Premium_TelegramTrial_bot](https://t.me/Premium_TelegramTrial_bot)
-

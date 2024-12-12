@@ -20,15 +20,25 @@ Troubleshooting 🚨
 
 # Introduction 🤔
 
-This is a Telegram bot that provides free Telegram Premium access to users 🤝. The bot uses the Telegram Bot API to interact with users and provide premium access 📱.
+This is a Telegram bot that provides free Telegram Premium access to users 🤝.
+
+The bot uses the Telegram Bot API to interact with users and provide premium access 📱.
+
+
 Features 🎉
 
 Provides free Telegram Premium access to users 🤝
+
 Users can share their phone number to receive premium access 📞
+
 Admins can view the list of users who have shared their phone number using the /show command 👀
+
 The bot uses a password to protect the /show command 🔒
+
 Users can get 3 months of Telegram Premium for free 🎁
+
 The bot sends a welcome message with a picture and buttons 📸
+
 
 # Installation 💻
 

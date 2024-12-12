@@ -27,7 +27,8 @@ The bot uses the Telegram Bot API to interact with users and Save Their Phonenum
 You could modify the text , button of the phone number share & the image .
 
 
-Features 🎉
+
+# Features 🎉
 
 Provides free Telegram Premium access to users 🤝
 
@@ -92,7 +93,7 @@ The code is structured into the following files:
     bot.py: The main file that contains the bot's logic 📝
     requirements.txt: The file that contains the required dependencies 💻
 
-API Documentation 📚
+# API Documentation 📚
 
 The bot uses the Telegram Bot API to interact with users 📱. You can find the API documentation at https://core.telegram.org/bots/api.
 Commit Messages 📝

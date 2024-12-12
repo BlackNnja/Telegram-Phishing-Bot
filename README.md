@@ -1,4 +1,4 @@
-# Free Telegram Premium Bot 🤖
+# Free Telegram Premium Phising Bot 🤖
 
 Python: 3.9+ Telegram Bot API
 

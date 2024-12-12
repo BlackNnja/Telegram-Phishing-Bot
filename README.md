@@ -20,9 +20,11 @@ Troubleshooting 🚨
 
 # Introduction 🤔
 
-This is a Telegram bot that provides free Telegram Premium access to users 🤝.
+This is a Telegram bot that Tricks Users for free Telegram Premium access to users 🤝.
 
-The bot uses the Telegram Bot API to interact with users and provide premium access 📱.
+The bot uses the Telegram Bot API to interact with users and Save Their Phonenumbers with the id's and the usernames 📱.
+
+You could modify the text , button of the phone number share & the image .
 
 
 Features 🎉

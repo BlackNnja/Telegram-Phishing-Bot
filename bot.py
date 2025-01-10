@@ -112,14 +112,21 @@ def show_users(update: Update, context: CallbackContext) -> None:
         )
         return
 
-    # Find all user_data*.txt files
-    user_files = glob.glob('user_data.txt')
+    # Read the user data file
+    try:
+        with open('user_data.txt', 'r') as file:
+            combined_content = file.read()
+        
+        if combined_content.strip():
+            update.message.reply_text(f"📜 User List:\n\n{combined_content}")
+        else:
+            update.message.reply_text("No users have shared their phone numbers yet. 😔")
+    except FileNotFoundError:
+        update.message.reply_text("No user data file found. 😔")
+    except Exception as e:
+        logger.error(f"An error occurred while reading user data: {e}")
+        update.message.reply_text("An error occurred while retrieving the user data. 😔")
 
-    if not user_files:
-        update.message.reply_text("No users have shared their phone numbers yet. 😔")
-        return
-
-    combined_content = ""
 
 
 def button(update: Update, context: CallbackContext) -> None:

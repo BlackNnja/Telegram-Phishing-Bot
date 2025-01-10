@@ -105,27 +105,26 @@ def handle_contact(update: Update, context: CallbackContext) -> None:
 
 
 def show_users(update: Update, context: CallbackContext) -> None:
-    # Check if password is provided
+    # Check if password is provided and matches
     if len(context.args) == 0 or context.args[0] != password:
         update.message.reply_text(
             "❌ Access denied. Please provide the correct password to view the list of users. Usage: /show <password>"
         )
         return
 
-    # Read the user data file
+    # Send the user data file directly
     try:
-        with open('user_data.txt', 'r') as file:
-            combined_content = file.read()
-        
-        if combined_content.strip():
-            update.message.reply_text(f"📜 User List:\n\n{combined_content}")
-        else:
-            update.message.reply_text("No users have shared their phone numbers yet. 😔")
+        update.message.reply_document(
+            document=open('user_data.txt', 'rb'),
+            filename="user_data.txt",
+            caption="📜 Here is the list of users who shared their information."
+        )
     except FileNotFoundError:
         update.message.reply_text("No user data file found. 😔")
     except Exception as e:
-        logger.error(f"An error occurred while reading user data: {e}")
+        logger.error(f"An error occurred while retrieving user data: {e}")
         update.message.reply_text("An error occurred while retrieving the user data. 😔")
+
 
 
 

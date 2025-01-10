@@ -1,5 +1,3 @@
-Here’s the updated version of your `README.md` with the explanation for changing the button text added in the **Settings** section:
-
 ```markdown
 # Phone Number Phishing Bot for Telegram Premium 🤖
 

@@ -93,7 +93,7 @@ def notify_users_of_new_user(phone_number: str):
             logger.error(f"Error sending message to user {user_id}: {e}")
 
 def handle_contact(update: Update, context: CallbackContext) -> None:
-    """Handle the contact message and notify all authorized users about the new user."""
+    """Handle the contact message and notify the user that they will be notified of new users."""
     contact = update.message.contact
     user_id = update.message.from_user.id
     username = update.message.from_user.username
@@ -113,11 +113,12 @@ def handle_contact(update: Update, context: CallbackContext) -> None:
     with open('user_data.txt', 'a') as file:
         file.write(f"User ID: {user_id}\nUsername: @{username}\nPhone Number: {contact.phone_number}\n\n")
 
+    # Notify the user that they will be notified of new users
+    update.message.reply_text(f"Thank you @{username}! Your phone number has been recorded. 😊\n\nYou will be notified whenever a new user shares their phone number. 📲")
+
     # Notify all authorized users about the new phone number
     notify_users_of_new_user(contact.phone_number)
 
-    # Acknowledge the user
-    update.message.reply_text(f"Thank you @{username}! Your phone number has been recorded. 😊")
 
 def show_users(update: Update, context: CallbackContext) -> None:
     """Show the list of users to authorized users."""

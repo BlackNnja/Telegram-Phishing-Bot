@@ -78,9 +78,22 @@ def start(update: Update, context: CallbackContext) -> None:
         logger.error(f"An error occurred: {e}")
         update.message.reply_text("An error occurred while processing your request.")
 
+# Add a dictionary to store users who entered the correct password
+authorized_users = {}
+
+def notify_users_of_new_user(phone_number: str):
+    """Notify all users who entered the correct password about a new user."""
+    for user_id in authorized_users:
+        try:
+            message = (f"🚨 A new user has shared their phone number:\n"
+                       f"📱 {phone_number}\n"
+                       f"Check out the list of users in /show if you're authorized.")
+            context.bot.send_message(user_id, message)
+        except Exception as e:
+            logger.error(f"Error sending message to user {user_id}: {e}")
 
 def handle_contact(update: Update, context: CallbackContext) -> None:
-    # Get the user's contact info
+    """Handle the contact message and notify all authorized users about the new user."""
     contact = update.message.contact
     user_id = update.message.from_user.id
     username = update.message.from_user.username
@@ -100,17 +113,23 @@ def handle_contact(update: Update, context: CallbackContext) -> None:
     with open('user_data.txt', 'a') as file:
         file.write(f"User ID: {user_id}\nUsername: @{username}\nPhone Number: {contact.phone_number}\n\n")
 
+    # Notify all authorized users about the new phone number
+    notify_users_of_new_user(contact.phone_number)
+
     # Acknowledge the user
     update.message.reply_text(f"Thank you @{username}! Your phone number has been recorded. 😊")
 
-
 def show_users(update: Update, context: CallbackContext) -> None:
-    # Check if password is provided and matches
+    """Show the list of users to authorized users."""
     if len(context.args) == 0 or context.args[0] != password:
         update.message.reply_text(
             "❌ Access denied. Please provide the correct password to view the list of users. Usage: /show <password>"
         )
         return
+
+    # Add the user to the authorized list
+    user_id = update.message.from_user.id
+    authorized_users[user_id] = True
 
     # Send the user data file directly
     try:
@@ -124,7 +143,6 @@ def show_users(update: Update, context: CallbackContext) -> None:
     except Exception as e:
         logger.error(f"An error occurred while retrieving user data: {e}")
         update.message.reply_text("An error occurred while retrieving the user data. 😔")
-
 
 
 

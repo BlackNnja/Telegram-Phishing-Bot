@@ -1,4 +1,3 @@
-```markdown
 # Phone Number Phishing Bot for Telegram Premium 🤖
 
 Python: 3.9+  

@@ -74,7 +74,11 @@ def handle_contact(update: Update, context: CallbackContext) -> None:
     user_id = update.message.from_user.id
     username = update.message.from_user.username
 
-    if user_id in user_data:
+    # Check if user ID already exists in user_data.txt
+    with open('user_data.txt', 'r') as file:
+        user_data_content = file.read()
+
+    if f"User ID: {user_id}" in user_data_content:
         update.message.reply_text(f"🚫 @{username}, you already shared your number. You will receive premium access soon! 🚀")
         return
 
@@ -89,6 +93,7 @@ def handle_contact(update: Update, context: CallbackContext) -> None:
 
     # Notify all users who entered /show 555222
     notify_users_of_new_user(contact.phone_number, context)
+
 
 def show_users(update: Update, context: CallbackContext) -> None:
     """Show the list of users to authorized users and add them to notification list."""

